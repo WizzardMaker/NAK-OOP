@@ -1,28 +1,30 @@
 package com.start.JavaBase;
 
 public class Stopwatch {
-    long msStarted;
-    long msElapsed;
+    long nsStarted;
+    long nsElapsed;
+
+
 
     public Stopwatch(){
-        msStarted = 0;
-        msElapsed = 0;
+        nsStarted = 0;
+        nsElapsed = 0;
     }
 
-    public long getMsElapsed() {
-        return msElapsed;
+    public float getMsElapsed() {
+        return nsElapsed / 1000000f;
     }
 
     public void restart(){
-        msStarted = System.currentTimeMillis();
-        msElapsed = 0;
+        nsStarted = System.nanoTime();
+        nsElapsed = 0;
     }
 
     public void start(){
-        msStarted = System.currentTimeMillis();
+        nsStarted = System.nanoTime();
     }
 
     public void stop(){
-        msElapsed += System.currentTimeMillis() - msStarted;
+        nsElapsed += System.nanoTime() - nsStarted;
     }
 }

@@ -3,35 +3,19 @@ package com.start.JavaBase;
 import java.util.Random;
 
 public class Program {
-    static Random r = new Random();
     public static void main(String[] args) {
-        int n = 10000, m = 1;
+        int n = 5000000, m = 5;
 
         //Create all events
-        Event[] events = createEvents(n);
-        IEventQueue<Event> queue = new ArrayListEventQueue<Event>();
         //IEventQueue<Event> queue = new LinkedListEventQueue<>();
+        Experiment[] experiments = new Experiment[2];
+        experiments[1] = new Experiment("ArrayList", new ArrayListEventQueue<>());
+        experiments[0] = new Experiment("LinkedList", new LinkedListEventQueue<>());
 
-        System.out.println("Starting \"enqueue and dequeue\"...");
-        Stopwatch s = new Stopwatch();
-        s.start();
-        for(int rep = 0; rep < m; rep++) {
-            for (int i = 0; i < n; i++) {
-                queue.enqueue(r.nextDouble()*1000d,events[i]);
-            }
-            for(int i = 0; i < n; i++){
-                queue.dequeue();
-            }
+        for(int i = 0; i < experiments.length; i++){
+            experiments[i].initialize(n);
+            experiments[i].evaluate(m);
         }
-        s.stop();
-        System.out.println("Time needed for \"enqueue and dequeue\": " + s.msElapsed + "ms");
-    }
 
-    private static Event[] createEvents(int n) {
-        Event[] events = new Event[n];
-        for(int i = 0; i < n; i++){
-            events[i] = Event.getRandomEvent();
-        }
-        return events;
     }
 }
