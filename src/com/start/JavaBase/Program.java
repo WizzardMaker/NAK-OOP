@@ -1,16 +1,22 @@
 package com.start.JavaBase;
 
-import java.util.Random;
-
 public class Program {
     public static void main(String[] args) {
-        int n = 5000000, m = 5;
+        int n = 100000, m = 3;
 
         //Create all events
         //IEventQueue<Event> queue = new LinkedListEventQueue<>();
         Experiment[] experiments = new Experiment[2];
-        experiments[1] = new Experiment("ArrayList", new ArrayListEventQueue<>());
-        experiments[0] = new Experiment("LinkedList", new LinkedListEventQueue<>());
+        experiments[0] = new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>());
+        experiments[1] = new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>());
+
+        for(int i = 0; i < experiments.length; i++){
+            experiments[i].initialize(n);
+            experiments[i].evaluate(5);
+        }
+
+        experiments[0] = new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>());
+        experiments[1] = new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>());
 
         for(int i = 0; i < experiments.length; i++){
             experiments[i].initialize(n);

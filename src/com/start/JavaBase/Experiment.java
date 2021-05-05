@@ -42,11 +42,11 @@ public class Experiment {
         System.out.println("Starting \""+name+"'s\" \"enqueue and dequeue\"...");
         Stopwatch s = new Stopwatch();
         s.start();
-        for(int rep = 0; rep < events.length; rep++) {
-            for (int i = 0; i < repetitions; i++) {
+        for(int rep = 0; rep < repetitions; rep++) {
+            for (int i = 0; i < events.length; i++) {
                 queue.enqueue(r.nextDouble()*1000d,events[i]);
             }
-            for(int i = 0; i < repetitions; i++){
+            for(int i = 0; i < events.length; i++){
                 queue.dequeue();
             }
         }
@@ -54,7 +54,7 @@ public class Experiment {
 
         float timePerPair = (s.nsElapsed/((float)repetitions*events.length));
         System.out.println("Time needed for  \""+name+"'s\" \"enqueue and dequeue\": " + s.getMsElapsed() + "ms and with each entry taking ca. " + timePerPair + "ns");
-
+    
         return timePerPair;
     }
 }
