@@ -2,9 +2,7 @@ package com.start.JavaBase;
 
 public class UnsortedArrayEventQueue<E> extends BaseArrayEventQueue<E>{
 
-    public UnsortedArrayEventQueue() {
-        super();
-    }
+    public UnsortedArrayEventQueue() { super(); }
 
     @Override
     public void enqueue(double time, E event) {

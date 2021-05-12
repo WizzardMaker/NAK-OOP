@@ -1,27 +1,41 @@
 package com.start.JavaBase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Program {
     public static void main(String[] args) {
-        int n = 100000, m = 3;
+        int n = 200000, m = 3;
+
+        System.out.printf("Running Experiment with %d items and %d repetitions\n", n,m);
 
         //Create all events
         //IEventQueue<Event> queue = new LinkedListEventQueue<>();
-        Experiment[] experiments = new Experiment[2];
-        experiments[0] = new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>());
-        experiments[1] = new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>());
+        ArrayList<Experiment> experiments = new ArrayList<>();
+        createExperiments(experiments);
 
-        for(int i = 0; i < experiments.length; i++){
-            experiments[i].initialize(n);
-            experiments[i].evaluate(5);
+        System.out.println("Performing JIT prewarm with 4 repetitions:");
+        for(int i = 0; i < experiments.size(); i++){
+            experiments.get(i).initialize(n);
+            experiments.get(i).evaluate(4);
         }
 
-        experiments[0] = new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>());
-        experiments[1] = new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>());
+        createExperiments(experiments);
 
-        for(int i = 0; i < experiments.length; i++){
-            experiments[i].initialize(n);
-            experiments[i].evaluate(m);
+        System.out.println("Starting experiment:");
+        for(int i = 0; i < experiments.size(); i++){
+            experiments.get(i).initialize(n);
+            experiments.get(i).evaluate(m);
         }
 
+    }
+
+    private static void createExperiments(ArrayList<Experiment> experiments) {
+        experiments.clear();
+        experiments.add(new Experiment("SplitListEventQueue", new SplitListEventQueue<>()));
+        experiments.add(new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>()));
+        experiments.add(new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>()));
+        //experiments.add(new Experiment("LinkedListEventQueue", new LinkedListEventQueue<>()));
+        experiments.add(new Experiment("ArrayListEventQueue", new ArrayListEventQueue<>()));
     }
 }
