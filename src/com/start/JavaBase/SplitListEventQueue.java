@@ -3,7 +3,7 @@ package com.start.JavaBase;
 import java.util.*;
 
 public class SplitListEventQueue<E> implements IEventQueue<E> {
-    static int MAX_NEAR_SIZE = 1000;
+    static int MAX_NEAR_SIZE = 15;
     PriorityQueue<Entry> near;
     int elementsInNear;
     double oldestElement;
@@ -38,21 +38,14 @@ public class SplitListEventQueue<E> implements IEventQueue<E> {
 
         if(elementsInNear > MAX_NEAR_SIZE){
             //Remove last element
-            int counter = 0;
-            double secOldest = 0;
-            Iterator<Entry> it = near.iterator();
-            while (it.hasNext()) {
-                Entry<E> find = it.next();
-                counter++;
-                if (counter == near.size()) {
-                    near.remove(find);
-                    far.add(e);
-                    isDirty = true;
-                    break;
-                }
-                secOldest = find.getTime();
-            }
-            oldestElement = secOldest;
+            Entry[] events = near.toArray(new Entry[near.size()]);
+            Arrays.sort(events, near.comparator());
+
+            Entry last = events[events.length-1];
+            near.remove(last);
+            far.add(last);
+            oldestElement = events[events.length-2].getTime();
+
             elementsInNear--;
         }
     }
@@ -115,6 +108,11 @@ public class SplitListEventQueue<E> implements IEventQueue<E> {
         }
 
         return e;
+    }
+
+    @Override
+    public int getLength() {
+        return near.size() + far.size();
     }
 
     public class Entry<E> implements IEntry<E> {

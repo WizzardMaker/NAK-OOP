@@ -36,6 +36,11 @@ public class ArrayListEventQueue<E> implements IEventQueue<E>{
         return e;
     }
 
+    @Override
+    public int getLength() {
+        return list.size();
+    }
+
     public class Entry<E> implements IEntry<E> {
         double time;
         E event;

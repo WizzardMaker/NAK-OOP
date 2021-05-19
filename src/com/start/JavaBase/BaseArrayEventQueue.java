@@ -51,6 +51,11 @@ public abstract class BaseArrayEventQueue<E> implements IEventQueue<E>{
         System.arraycopy(list, index+1, list, index, list.length - index-1);
     }
 
+    @Override
+    public int getLength(){
+        return items;
+    }
+
     public class Entry<E> implements IEntry<E> {
         double time;
         E event;

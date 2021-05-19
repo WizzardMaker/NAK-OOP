@@ -6,11 +6,11 @@ public interface IEventQueue<E> {
 
     IEventQueue.IEntry<E> dequeue ();
 
-    public interface IEntry<E> {
+    int getLength();
 
+    public interface IEntry<E> {
         double getTime();
 
         E getEvent();
-
     }
 }
