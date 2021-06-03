@@ -1,8 +1,7 @@
-package com.start.JavaBase.Tests;
+package com.start.JavaBase.tests;
 
 import com.start.JavaBase.ArrayListEventQueue;
 import com.start.JavaBase.IEventQueue;
-import com.start.JavaBase.LinkedListEventQueue;
 
 public class ArrayListEventQueueTest implements IEventQueueTest{
 

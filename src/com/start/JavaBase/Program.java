@@ -1,7 +1,9 @@
 package com.start.JavaBase;
 
+import com.start.JavaBase.criterias.CriteriaCollection;
+import com.start.JavaBase.criterias.MaxRepetitionCriteria;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
@@ -11,13 +13,14 @@ public class Program {
 
         //Create all events
         //IEventQueue<Event> queue = new LinkedListEventQueue<>();
-        ArrayList<Experiment> experiments = new ArrayList<>();
+        ArrayList<IExperiment> experiments = new ArrayList<>();
         createExperiments(experiments);
 
         System.out.println("Performing JIT prewarm with 4 repetitions:");
-        for(int i = 0; i < experiments.size(); i++){
+        for(int i = 0; i < experiments.size(); i++)
+        {
             experiments.get(i).initialize(n);
-            experiments.get(i).evaluate(4);
+            experiments.get(i).execute();
         }
 
         createExperiments(experiments);
@@ -25,17 +28,21 @@ public class Program {
         System.out.println("Starting experiment:");
         for(int i = 0; i < experiments.size(); i++){
             experiments.get(i).initialize(n);
-            experiments.get(i).evaluate(m);
+            experiments.get(i).execute();
         }
-
     }
 
-    private static void createExperiments(ArrayList<Experiment> experiments) {
+    private static void createExperiments(ArrayList<IExperiment> experiments) {
         experiments.clear();
-        experiments.add(new Experiment("SplitListEventQueue", new SplitListEventQueue<>()));
-        experiments.add(new Experiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>()));
-        experiments.add(new Experiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>()));
+        experiments.add(new EventQueueExperiment("SplitListEventQueue Reflection", "com.start.JavaBase.SplitListEventQueue"));
+        experiments.add(new EventQueueExperiment("SplitListEventQueue", new SplitListEventQueue<Event>()));
+        experiments.add(new EventQueueExperiment("SortedArrayEventQueue", new SortedArrayEventQueue<Event>()));
+        experiments.add(new EventQueueExperiment("UnsortedArrayEventQueue", new UnsortedArrayEventQueue<Event>()));
         //experiments.add(new Experiment("LinkedListEventQueue", new LinkedListEventQueue<>()));
-        experiments.add(new Experiment("ArrayListEventQueue", new ArrayListEventQueue<>()));
+        experiments.add(new EventQueueExperiment("ArrayListEventQueue", new ArrayListEventQueue<>()));
+
+        for(IExperiment e: experiments) {
+            e.setCriterias(CriteriaCollection.CreateSingleCriteria(new MaxRepetitionCriteria(5)));
+        }
     }
 }

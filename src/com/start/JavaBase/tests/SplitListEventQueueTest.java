@@ -1,8 +1,7 @@
-package com.start.JavaBase.Tests;
+package com.start.JavaBase.tests;
 
 import com.start.JavaBase.IEventQueue;
 import com.start.JavaBase.SplitListEventQueue;
-import com.start.JavaBase.UnsortedArrayEventQueue;
 
 public class SplitListEventQueueTest implements IEventQueueTest{
 

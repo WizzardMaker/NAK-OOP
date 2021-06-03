@@ -1,0 +1,69 @@
+1.
+B
+C
+D
+
+2.
+
+public boolean isOnXAxis() {
+    return y == 0;
+}
+
+3.
+
+A - Unendlich
+B - Falsche deklaration
+C Yes
+D - gibts nicht
+E Yes
+F - falsche Syntax
+G Yes
+H Yes, aber veränder nicht den Array
+I Yes
+J Yes
+
+4.
+
+public int[] fill(int n){
+    int[] a = new int[n];
+    for(int i = 0; i < n; i++){
+        a[i] = i*i;
+    }
+
+    return a;
+}
+
+5.
+
+class EquilateralTriangle {
+    private float sideLength;
+
+    public float getSideLength(){
+        return sideLength;
+    }
+
+    public void setSideLength(float nLength){
+        sideLength = nLength;
+    }
+
+    public EquilateralTriangle(float sideLength){
+        this.sideLength = sideLength;
+    }
+}
+
+6.
+
+public void printArrayElements(String array){
+    for(String e : array){
+        if(e != null)
+            System.out.println(e);
+    }
+}
+
+7.
+
+A,
+B,
+C (Wobei hier anzumerken ist, dass dort zu viel an informationen ist, da die {} nicht zur Signatur gehören, diese aber nicht invalidiert),
+E,
+F

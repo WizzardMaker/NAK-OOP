@@ -1,9 +1,9 @@
-package com.start.JavaBase.Tests;
+package com.start.JavaBase.tests;
 
 import com.start.JavaBase.IEventQueue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,10 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 interface IEventQueueTest {
     IEventQueue create();
 
+    ArrayList<String> list = new ArrayList();
+    ArrayList<Integer> list1 = new ArrayList<>();
+
     @Test
     default void enqueueAndDequeue() {
         IEventQueue queue = create();
         assertEquals(0, queue.getLength());
+
+
 
         double[] testData = new double[]{9, 2, 5, 8, 0, 1, 3, 4, 6, 7};
 

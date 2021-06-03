@@ -15,7 +15,7 @@ public class Stopwatch {
         return nsElapsed / 1000000f;
     }
 
-    public void restart(){
+    public void restart() {
         nsStarted = System.nanoTime();
         nsElapsed = 0;
     }
